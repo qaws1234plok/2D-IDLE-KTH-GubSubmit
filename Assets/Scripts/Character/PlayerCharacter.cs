@@ -1,10 +1,8 @@
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 
 [System.Serializable]
 public class PlayerData
 {
-    public string characterName;
     public float maxHealth;
     public float currentHealth;
     public float attackPower;
@@ -16,18 +14,19 @@ public class PlayerData
 
 public class PlayerCharacter : SingletonMonoBehaviour<PlayerCharacter>
 {
+    public PlayerData data;
     [field: Header("Anime들")]
     [field: SerializeField] public PlayerAnimationData AnimationData { get; private set; }
 
     public Animator Animator { get; private set; }
-    public PlayerController Input {  get; private set; }
+    public PlayerController Input { get; private set; }
     public Character Character { get; private set; }
     [SerializeField] private PlayerStat stat; // 추가된 부분
 
-    private int currentExperience;
-    private int currentLevel;
-    private int currentGold;
-    private int experienceToNextLevel;
+    private int currentExperience { get => data.currentExperience; set => data.currentExperience = value; }
+    private int currentLevel { get => data.currentLevel; set => data.currentLevel = value; }
+    private int currentGold { get => data.currentGold; set => data.currentGold = value; }
+    private int experienceToNextLevel { get => data.experienceToNextLevel; set => data.experienceToNextLevel = value; }
 
     private PlayerStateMachine stateMachine;
 
@@ -39,19 +38,59 @@ public class PlayerCharacter : SingletonMonoBehaviour<PlayerCharacter>
         Input = GetComponent<PlayerController>();
         AnimationData.Initialize();
 
-        // 초기화
-        currentLevel = stat.level;
-        currentExperience = 0;
-        currentGold = stat.gold;
-        experienceToNextLevel = stat.level * 1000;
-
         // 상태 머신 초기화 및 첫 상태 설정
         stateMachine = new PlayerStateMachine(this);
+
+        SetInitialValues();
     }
+
+    void SaveData()
+    {
+        PlayerData playerData = new PlayerData();
+        playerData.currentLevel = currentLevel;
+        playerData.currentExperience = currentExperience;
+        playerData.currentGold = currentGold;
+        playerData.experienceToNextLevel = experienceToNextLevel;
+        playerData.maxHealth = Character.MaxHealth;
+        playerData.currentHealth = Character.CurrentHealth;
+        playerData.attackPower = Character.AttackPower;
+
+        string saveData = JsonUtility.ToJson(playerData);
+
+        SaveAndLoadManager.Instance.SavePlayerData(saveData);
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveData();
+    }
+
+    void LoadData()
+    {
+        PlayerData data = SaveAndLoadManager.Instance.LoadPlayerData();
+
+        if (data == null)
+        {
+            SetInitialValues();
+            Debug.Log("저장데이터가 없어서 초기값으로 간다");
+            return;
+        }
+
+        
+        currentLevel = data.currentLevel;
+        currentExperience = data.currentExperience;
+        currentGold = data.currentGold;
+        experienceToNextLevel = data.experienceToNextLevel;
+        Character.MaxHealth = data.maxHealth;
+        Character.CurrentHealth = data.currentHealth;
+        Character.AttackPower = data.attackPower;
+    }
+
 
     private void Start()
     {
         stateMachine.ChangeState(stateMachine.IdleState);
+        LoadData();
     }
 
     private void Update()
@@ -59,7 +98,14 @@ public class PlayerCharacter : SingletonMonoBehaviour<PlayerCharacter>
         stateMachine.HandleInput();
         stateMachine.Update();
     }
-
+    void SetInitialValues()
+    {
+        // 초기화
+        currentLevel = stat.level;
+        currentExperience = 0;
+        currentGold = stat.gold;
+        experienceToNextLevel = stat.level * 1000;
+    }
     public void TakeDamage(float damage)
     { 
         Character.CurrentHealth -= damage;
