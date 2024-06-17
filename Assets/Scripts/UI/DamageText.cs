@@ -1,14 +1,15 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using System.Numerics;
 
 public class DamageText : MonoBehaviour
 {
     public TextMeshProUGUI damageText;
 
-    public void Initialize(float damage)
+    public void Initialize(BigInteger damage)
     {
-        damageText.text = damage.ToString();
+        damageText.text = PlayerCharacter.Instance.Character.GetFormattedAttackPower();
         StartCoroutine(FadeOutAndDestroy());
     }
 
@@ -22,7 +23,7 @@ public class DamageText : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             damageText.color = Color.Lerp(originalColor, Color.clear, elapsed / duration);
-            transform.Translate(Vector3.up * Time.deltaTime); // 텍스트가 위로 이동
+            transform.Translate(UnityEngine.Vector3.up * Time.deltaTime); // 텍스트가 위로 이동
             yield return null;
         }
 

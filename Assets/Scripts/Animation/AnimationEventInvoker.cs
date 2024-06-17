@@ -1,3 +1,4 @@
+using System.Numerics;
 using UnityEngine;
 
 public class AnimationEventInvoker : MonoBehaviour
@@ -16,7 +17,7 @@ public class AnimationEventInvoker : MonoBehaviour
         if (enemy != null)
         {
             // 부모 PlayerCharacter의 공격력을 가져와서 적에게 데미지를 줌
-            float attackPower = PlayerCharacter.Instance.Character.AttackPower;
+            BigInteger attackPower = PlayerCharacter.Instance.Character.AttackPower;
             enemy.TakeDamage(attackPower);
             AudioManager.Instance.PlayerAttackSound();
         }
@@ -36,7 +37,7 @@ public class AnimationEventInvoker : MonoBehaviour
         var player = FindObjectOfType<PlayerCharacter>();
         if ( player != null && enemyCharacter != null)
         {
-            float enemyAttackPower = enemyCharacter.Character.AttackPower;
+            BigInteger enemyAttackPower = enemyCharacter.Character.AttackPower;
             player.TakeDamage(enemyAttackPower);
         }
     }

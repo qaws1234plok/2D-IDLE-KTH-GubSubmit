@@ -1,3 +1,4 @@
+using System.Numerics;
 using UnityEngine;
 
 [System.Serializable]
@@ -5,7 +6,7 @@ public class PlayerData
 {
     public float maxHealth;
     public float currentHealth;
-    public float attackPower;
+    public string attackPower; // BigInteger를 문자열로 저장
     public int currentExperience;
     public int currentLevel;
     public int currentGold;
@@ -61,7 +62,7 @@ public class PlayerCharacter : SingletonMonoBehaviour<PlayerCharacter>
         playerData.experienceToNextLevel = experienceToNextLevel;
         playerData.maxHealth = Character.MaxHealth;
         playerData.currentHealth = Character.CurrentHealth;
-        playerData.attackPower = Character.AttackPower;
+        playerData.attackPower = Character.AttackPower.ToString(); // BigInteger를 문자열로 저장
         playerData.upgradeCount = upgradeCount;
         playerData.autoUpgradeCount = autoUpgradeCount;
         playerData.isAutoGoldActive = IsAutoGoldActive;
@@ -95,7 +96,7 @@ public class PlayerCharacter : SingletonMonoBehaviour<PlayerCharacter>
         experienceToNextLevel = data.experienceToNextLevel;
         Character.MaxHealth = data.maxHealth;
         Character.CurrentHealth = data.currentHealth;
-        Character.AttackPower = data.attackPower;
+        Character.SetAttackPowerFromString(data.attackPower); // 문자열을 BigInteger로 변환
         upgradeCount = data.upgradeCount;
         autoUpgradeCount = data.autoUpgradeCount;
         IsAutoGoldActive = data.isAutoGoldActive;
@@ -126,9 +127,9 @@ public class PlayerCharacter : SingletonMonoBehaviour<PlayerCharacter>
         IsAutoGoldActive = false;
         IsAutoAttackMode = false;
     }
-    public void TakeDamage(float damage)
-    { 
-        Character.CurrentHealth -= damage;
+    public void TakeDamage(BigInteger damage)
+    {
+        Character.CurrentHealth -= (float)damage;
     }
     public PlayerStateMachine GetStateMachine()
     {

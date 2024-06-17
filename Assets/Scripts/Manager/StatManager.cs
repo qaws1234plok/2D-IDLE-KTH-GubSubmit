@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections;
+using System.Numerics;
 
 public class StatManager : MonoBehaviour
 {
@@ -27,7 +28,6 @@ public class StatManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(AutoGoldProduction());
-        Debug.Log(upgradeCount);
     }
 
     private void Update()
@@ -39,11 +39,11 @@ public class StatManager : MonoBehaviour
 
     private void UpdateStat()
     {
-        currentStatText.text = $"Name: {PlayerCharacter.Instance.Character.CharacterName}\n" +
+        currentStatText.text = $"이름: {PlayerCharacter.Instance.Character.CharacterName}\n" +
                                $"Level: {PlayerCharacter.Instance.GetLevel()}\n" +
-                               $"Max Health: {PlayerCharacter.Instance.Character.MaxHealth}\n" +
-                               $"Current Health: {PlayerCharacter.Instance.Character.CurrentHealth}\n" +
-                               $"Attack Power: {PlayerCharacter.Instance.Character.AttackPower}";
+                               $"최대체력: {PlayerCharacter.Instance.Character.MaxHealth}\n" +
+                               $"현재체력: {PlayerCharacter.Instance.Character.CurrentHealth}\n" +
+                               $"공격력: {PlayerCharacter.Instance.Character.GetFormattedAttackPower()}";
 
         goldText.text = $"Gold: {PlayerCharacter.Instance.GetGold().ToString("N0")}G";
 
@@ -64,7 +64,8 @@ public class StatManager : MonoBehaviour
     {
         if (PlayerCharacter.Instance.GetGold() >= 100 * upgradeCount)
         {
-            float upgradePower = PlayerCharacter.Instance.Character.AttackPower * 10f;
+            BigInteger currentAttackPower = PlayerCharacter.Instance.Character.AttackPower;
+            BigInteger upgradePower = currentAttackPower * 3;
             PlayerCharacter.Instance.Character.AttackPower = upgradePower;
             PlayerCharacter.Instance.AddGold(-100 * upgradeCount);
             upgradeCount++;

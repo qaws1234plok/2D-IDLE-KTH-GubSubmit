@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using UnityEngine.Events;
+using System.Numerics;
 public class EnemyCharacter : MonoBehaviour
 {
     private Animator animator;
@@ -24,9 +25,9 @@ public class EnemyCharacter : MonoBehaviour
         dropManager = DropManager.Instance;
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(BigInteger damage)
     {
-        Character.CurrentHealth -= damage;
+        Character.CurrentHealth -= (float)damage;
         ShowDamageText(damage);
         if (Character.CurrentHealth <= 0)
         {
@@ -37,12 +38,12 @@ public class EnemyCharacter : MonoBehaviour
             onDead?.Invoke();
         }
     }
-    private void ShowDamageText(float damage)
+    private void ShowDamageText(BigInteger damage)
     {
         if (damageTextPrefab != null)
         {
             // 적의 월드 좌표를 화면 좌표로 변환
-            Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 1.5f);
+            UnityEngine.Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position + UnityEngine.Vector3.up * 1.5f);
             // Canvas를 찾고, 그 안에 데미지 텍스트를 생성하여 표시
             Canvas canvas = FindObjectOfType<Canvas>();
             GameObject damageTextObject = Instantiate(damageTextPrefab, canvas.transform);
