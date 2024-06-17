@@ -10,6 +10,10 @@ public class PlayerData
     public int currentLevel;
     public int currentGold;
     public int experienceToNextLevel;
+    public int upgradeCount;          
+    public int autoUpgradeCount;      
+    public bool isAutoGoldActive;     
+    public bool isAutoAttackMode;   
 }
 
 public class PlayerCharacter : SingletonMonoBehaviour<PlayerCharacter>
@@ -27,6 +31,10 @@ public class PlayerCharacter : SingletonMonoBehaviour<PlayerCharacter>
     private int currentLevel { get => data.currentLevel; set => data.currentLevel = value; }
     private int currentGold { get => data.currentGold; set => data.currentGold = value; }
     private int experienceToNextLevel { get => data.experienceToNextLevel; set => data.experienceToNextLevel = value; }
+    public int upgradeCount { get => data.upgradeCount; set => data.upgradeCount = value; }
+    public int autoUpgradeCount { get => data.autoUpgradeCount; set => data.autoUpgradeCount = value; }
+    public bool IsAutoGoldActive { get => data.isAutoGoldActive; set => data.isAutoGoldActive = value; }
+    public bool IsAutoAttackMode { get => data.isAutoAttackMode; set => data.isAutoAttackMode = value; }
 
     private PlayerStateMachine stateMachine;
 
@@ -54,6 +62,10 @@ public class PlayerCharacter : SingletonMonoBehaviour<PlayerCharacter>
         playerData.maxHealth = Character.MaxHealth;
         playerData.currentHealth = Character.CurrentHealth;
         playerData.attackPower = Character.AttackPower;
+        playerData.upgradeCount = upgradeCount;
+        playerData.autoUpgradeCount = autoUpgradeCount;
+        playerData.isAutoGoldActive = IsAutoGoldActive;
+        playerData.isAutoAttackMode = IsAutoAttackMode;
 
         string saveData = JsonUtility.ToJson(playerData);
 
@@ -84,6 +96,10 @@ public class PlayerCharacter : SingletonMonoBehaviour<PlayerCharacter>
         Character.MaxHealth = data.maxHealth;
         Character.CurrentHealth = data.currentHealth;
         Character.AttackPower = data.attackPower;
+        upgradeCount = data.upgradeCount;
+        autoUpgradeCount = data.autoUpgradeCount;
+        IsAutoGoldActive = data.isAutoGoldActive;
+        IsAutoAttackMode = data.isAutoAttackMode;
     }
 
 
@@ -105,6 +121,10 @@ public class PlayerCharacter : SingletonMonoBehaviour<PlayerCharacter>
         currentExperience = 0;
         currentGold = stat.gold;
         experienceToNextLevel = stat.level * 1000;
+        upgradeCount = 1;
+        autoUpgradeCount = 1;
+        IsAutoGoldActive = false;
+        IsAutoAttackMode = false;
     }
     public void TakeDamage(float damage)
     { 

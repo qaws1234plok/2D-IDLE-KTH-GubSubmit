@@ -13,8 +13,8 @@ public class StatManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI autoUpgradeGold;
     [SerializeField] Image goldAutoBar;
 
-    private int upgradeCount = 1;
-    private int autoUpgradeCount = 1;
+    private int upgradeCount { get => PlayerCharacter.Instance.upgradeCount; set => PlayerCharacter.Instance.upgradeCount = value; }
+    private int autoUpgradeCount { get => PlayerCharacter.Instance.autoUpgradeCount; set => PlayerCharacter.Instance.autoUpgradeCount = value; }
     private int autoGold = 1000;
     private float autoGoldInterval = 5.0f;
     public ParticleSystem EffectParticle;
@@ -27,6 +27,7 @@ public class StatManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(AutoGoldProduction());
+        Debug.Log(upgradeCount);
     }
 
     private void Update()
@@ -63,7 +64,7 @@ public class StatManager : MonoBehaviour
     {
         if (PlayerCharacter.Instance.GetGold() >= 100 * upgradeCount)
         {
-            float upgradePower = PlayerCharacter.Instance.Character.AttackPower * 2f;
+            float upgradePower = PlayerCharacter.Instance.Character.AttackPower * 10f;
             PlayerCharacter.Instance.Character.AttackPower = upgradePower;
             PlayerCharacter.Instance.AddGold(-100 * upgradeCount);
             upgradeCount++;

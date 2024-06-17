@@ -3,8 +3,16 @@ using UnityEngine;
 
 public class ShopManager : SingletonMonoBehaviour<ShopManager>
 {
-    public bool IsAutoGoldActive { get; private set; }
-    public bool IsAutoAttackMode {  get; private set; }
+    public bool IsAutoGoldActive
+    {
+        get { return PlayerCharacter.Instance.IsAutoGoldActive; }
+        private set { PlayerCharacter.Instance.IsAutoGoldActive = value; }
+    }
+    public bool IsAutoAttackMode
+    {
+        get { return PlayerCharacter.Instance.IsAutoAttackMode; }
+        private set { PlayerCharacter.Instance.IsAutoAttackMode = value; }
+    }
 
     [SerializeField] private GameObject destroyButtonAutoGoldBtn;
     [SerializeField] private GameObject destroyButtonAutoAttackBtn;
@@ -16,11 +24,18 @@ public class ShopManager : SingletonMonoBehaviour<ShopManager>
 
     public void BuyAutoGoldMachine()
     {
-        if (PlayerCharacter.Instance.GetGold() >= 30000)
+        if (PlayerCharacter.Instance.IsAutoGoldActive)
+        {
+            ErrorMessageText.Instance.ShowErrorMessage("이미 구입 했습니다");
+            destroyButtonAutoGoldBtn.SetActive(false); // 버튼 비활성화
+            return;
+        }
+
+        if (!PlayerCharacter.Instance.IsAutoGoldActive && PlayerCharacter.Instance.GetGold() >= 30000)
         {
             PlayerCharacter.Instance.AddGold(-30000);
             IsAutoGoldActive = true;
-            Destroy(destroyButtonAutoGoldBtn);
+            destroyButtonAutoGoldBtn.SetActive(false); // 버튼 비활성화
         }
         else
         {
@@ -30,11 +45,18 @@ public class ShopManager : SingletonMonoBehaviour<ShopManager>
 
     public void BuyAutoAttackMod()
     {
-        if (PlayerCharacter.Instance.GetGold() >= 300000)
+        if (PlayerCharacter.Instance.IsAutoAttackMode)
+        {
+            ErrorMessageText.Instance.ShowErrorMessage("이미 구입 했습니다");
+            destroyButtonAutoAttackBtn.SetActive(false); // 버튼 비활성화
+            return;
+        }
+
+        if (!PlayerCharacter.Instance.IsAutoAttackMode && PlayerCharacter.Instance.GetGold() >= 300000)
         {
             PlayerCharacter.Instance.AddGold(-300000);
             IsAutoAttackMode = true;
-            Destroy(destroyButtonAutoAttackBtn);
+            destroyButtonAutoAttackBtn.SetActive(false); // 버튼 비활성화
         }
         else
         {
