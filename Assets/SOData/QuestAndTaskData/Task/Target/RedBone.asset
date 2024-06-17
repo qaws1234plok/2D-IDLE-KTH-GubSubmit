@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac48501d557c0e64c82ead9a6cd79612, type: 3}
-  m_Name: Category_KILL
+  m_Script: {fileID: 11500000, guid: f1e74f91ddebc284cbc6840bf16f5146, type: 3}
+  m_Name: RedBone
   m_EditorClassIdentifier: 
-  codeName: "\uBAAC\uC2A4\uD130\uB97C \uCC98\uCE58"
-  displayName: "\uBAAC\uC2A4\uD130\uB97C \uCC98\uCE58"
+  value: {fileID: 500496300373484214, guid: bd4e95c97ecd48241bf515633a21d677, type: 3}

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac48501d557c0e64c82ead9a6cd79612, type: 3}
-  m_Name: Category_KILL
+  m_Name: Category
   m_EditorClassIdentifier: 
-  codeName: "\uBAAC\uC2A4\uD130\uB97C \uCC98\uCE58"
-  displayName: "\uBAAC\uC2A4\uD130\uB97C \uCC98\uCE58"
+  codeName: "\uC2A4\uD15F \uC99D\uBA85!"
+  displayName: "\uC2A4\uD15F \uC99D\uBA85!"

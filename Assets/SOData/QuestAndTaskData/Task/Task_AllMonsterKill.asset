@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfc9272ec44b93443a7a586bfcd4ac27, type: 3}
+  m_Name: Task_AllMonsterKill
+  m_EditorClassIdentifier: 
+  category: {fileID: 11400000, guid: 0e574c9f604f7924f9e3de8eb439a74c, type: 2}
+  codeName: "\uBAAC\uC2A4\uD130\uB97C \uAC00\uB9AC\uC9C0 \uC54A\uACE0 \uC7A1\uC544\uB77C!"
+  description: "\uBAAC\uC2A4\uD130\uB97C \uAC00\uB9AC\uC9C0 \uC54A\uACE0 \uC7A1\uC544\uB77C!"
+  needSuccessToCompleted: 25
+  initialSuccessValue: {fileID: 0}
+  canReceiverReportsDuringCompletion: 0
+  targets:
+  - {fileID: 11400000, guid: 5e5bce0339c5e3e45af4cb8680d3706a, type: 2}
+  - {fileID: 11400000, guid: 7703e9095ab4736438b051869ce2072b, type: 2}
+  - {fileID: 11400000, guid: cb48d17233895c4489ef6e89dd89c2ed, type: 2}
+  - {fileID: 11400000, guid: 2fe82e0979cb70849b8ae962467562a5, type: 2}
+  - {fileID: 11400000, guid: ea0e0c8f5087a5243bbfc4644d7ae74d, type: 2}
+  action: {fileID: 11400000, guid: 5fc152d49c6dc4141b9898983aa554be, type: 2}

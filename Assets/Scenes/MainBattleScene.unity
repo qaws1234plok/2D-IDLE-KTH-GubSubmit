@@ -3714,6 +3714,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   quests:
   - {fileID: 11400000, guid: 8cc960ab16cc547418e1d52101c81b80, type: 2}
+  - {fileID: 11400000, guid: 1653a6b9ef08ebb43babded4166fa0e0, type: 2}
 --- !u!4 &1089636758
 Transform:
   m_ObjectHideFlags: 0
@@ -10701,10 +10702,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
+    maxHealth: 0
+    currentHealth: 0
+    attackPower: 
     currentExperience: 0
     currentLevel: 0
     currentGold: 0
     experienceToNextLevel: 0
+    upgradeCount: 0
+    autoUpgradeCount: 0
+    isAutoGoldActive: 0
+    isAutoAttackMode: 0
   <AnimationData>k__BackingField:
     noneParameterName: '@None'
     idleParameterName: Idle

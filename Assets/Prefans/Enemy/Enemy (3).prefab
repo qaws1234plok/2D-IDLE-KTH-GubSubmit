@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8579297930953134332}
   - component: {fileID: 62065061863866244}
   - component: {fileID: 4939670329414279395}
+  - component: {fileID: 3703753692710292629}
   m_Layer: 0
   m_Name: Enemy (3)
   m_TagString: Enemy
@@ -60,6 +61,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageTextPrefab: {fileID: 1653663410915512148, guid: 0abeeb49e68e9bd4ba7ff0b0678dbda0, type: 3}
+  onDead:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3703753692710292629}
+        m_TargetAssemblyTypeName: QuestReporter, Assembly-CSharp
+        m_MethodName: Report
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3703753692710292629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5094486943679148765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f26d15e23804fac45a2d60883e4e43f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: {fileID: 11400000, guid: 0e574c9f604f7924f9e3de8eb439a74c, type: 2}
+  target: {fileID: 11400000, guid: ea0e0c8f5087a5243bbfc4644d7ae74d, type: 2}
+  successCount: 1
+  colliderTags: []
 --- !u!1 &6847716691362761207
 GameObject:
   m_ObjectHideFlags: 0
